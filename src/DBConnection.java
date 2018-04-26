@@ -31,7 +31,6 @@ public class DBConnection {
 				String column = rm.getColumnName(i);
 				System.out.println(rm.getColumnClassName(i));  //classname은 결국 컬럼의 타입이다. String값을 리턴시킴
 				Object value = null;
-				
 				if("java.lang.String".equals(rm.getColumnClassName(i))){
 					value = rs.getString(column);
 				}else if ("java.lang.Integer".equals(rm.getColumnClassName(i))){
@@ -46,5 +45,16 @@ public class DBConnection {
 				
 		
 		return list;		
+	}
+
+	public static int insert(Connection con,String sql, List dataList) throws Exception {
+		PreparedStatement ps = con.prepareStatement(sql);
+		for(int i=1;i<=dataList.size();i++) { 			// DB에서 가져오는건 1부터 가져온다 0은 헤더
+			ps.setString(i, dataList.get(i-1).toString());
+		}
+		
+		int result = ps.executeUpdate();
+		ps.close();
+		return result;
 	}
 }
