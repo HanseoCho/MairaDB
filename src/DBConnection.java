@@ -46,13 +46,13 @@ public class DBConnection {
 		
 		return list;		
 	}
-
-	public static int insert(Connection con,String sql, List dataList) throws Exception {
+	//원래 삽입 삭제 수정 을 각각 만들었으나 구현하는게 같아서 하나의 메소드로 통합시킴
+	public static int edit(Connection con,String sql, List dataList) throws Exception {
 		PreparedStatement ps = con.prepareStatement(sql);
 		for(int i=1;i<=dataList.size();i++) { 			// DB에서 가져오는건 1부터 가져온다 0은 헤더
 			ps.setString(i, dataList.get(i-1).toString());
 		}
-		
+
 		int result = ps.executeUpdate();
 		ps.close();
 		return result;
