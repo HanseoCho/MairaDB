@@ -15,16 +15,16 @@ public class DBCon {
 		
 		try {
 			System.out.println("드라이버 클래스 확인");
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");  // 연결상태확인
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			con = DriverManager.getConnection(url, user, pwd);
+			con = DriverManager.getConnection(url, user, pwd);  // 데이터베이스 연결
 			String sql = "select id from user";
-			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			PreparedStatement ps = con.prepareStatement(sql);  // 컴파일된 sql문을 수행시킨다.
+			ResultSet rs = ps.executeQuery();  				   // 실행시켜서
 			while(rs.next()) {
 				String id = rs.getString("id");
 				System.out.println(id);
